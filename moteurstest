@@ -1,0 +1,100 @@
+# -*- coding: utf-8 -*-
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
+
+import time
+import atexit
+from picamera import PiCamera
+from time import sleep
+
+#Defs
+
+mh = Adafruit_MotorHAT(addr=0x60)
+
+def turnOffMotors():
+    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
+
+camera = PiCamera()
+
+atexit.register(turnOffMotors)
+
+#Moteurs
+myMotor1 = mh.getMotor(1)
+myMotor2 = mh.getMotor(2)
+myMotor3 = mh.getMotor(3)
+myMotor4 = mh.getMotor(4)
+
+#Vitesse
+myMotor1.setSpeed(150)
+myMotor1.run(Adafruit_MotorHAT.FORWARD);
+myMotor2.setSpeed(150)
+myMotor2.run(Adafruit_MotorHAT.FORWARD);
+myMotor3.setSpeed(150)
+myMotor3.run(Adafruit_MotorHAT.FORWARD);
+myMotor4.setSpeed(150)
+myMotor4.run(Adafruit_MotorHAT.FORWARD);
+
+#Démarer
+myMotor1.run(Adafruit_MotorHAT.RELEASE);
+myMotor2.run(Adafruit_MotorHAT.RELEASE);
+myMotor3.run(Adafruit_MotorHAT.RELEASE);
+myMotor4.run(Adafruit_MotorHAT.RELEASE);
+
+#Code
+camera.start_preview()
+
+while (True):
+    print("Forward! ")
+    myMotor1.run(Adafruit_MotorHAT.FORWARD)
+    myMotor2.run(Adafruit_MotorHAT.FORWARD)
+    myMotor3.run(Adafruit_MotorHAT.FORWARD)
+    myMotor4.run(Adafruit_MotorHAT.FORWARD)
+
+    print("\tSpeed up...")
+    for i in range(255):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        myMotor3.setSpeed(i)
+        myMotor4.setSpeed(i)
+        time.sleep(0.01)
+
+    print("\tSlow down...")
+    for i in reversed(range(255)):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        myMotor3.setSpeed(i)
+        myMotor4.setSpeed(i)
+        time.sleep(0.01)
+
+    print("Backward! ")
+    myMotor1.run(Adafruit_MotorHAT.BACKWARD)
+    myMotor2.run(Adafruit_MotorHAT.BACKWARD)
+    myMotor3.run(Adafruit_MotorHAT.BACKWARD)
+    myMotor4.run(Adafruit_MotorHAT.BACKWARD)
+
+    print("\tSpeed up...")
+    for i in range(255):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        myMotor3.setSpeed(i)
+        myMotor4.setSpeed(i)
+        time.sleep(0.01)
+
+    print("\tSlow down...")
+    for i in reversed(range(255)):
+        myMotor1.setSpeed(i)
+        myMotor2.setSpeed(i)
+        myMotor3.setSpeed(i)
+        myMotor4.setSpeed(i)
+        time.sleep(0.01)
+
+    print("Release")
+    myMotor1.run(Adafruit_MotorHAT.RELEASE)
+    myMotor2.run(Adafruit_MotorHAT.RELEASE)
+    myMotor3.run(Adafruit_MotorHAT.RELEASE)
+    myMotor4.run(Adafruit_MotorHAT.RELEASE)
+    time.sleep(1.0)
+
+s
